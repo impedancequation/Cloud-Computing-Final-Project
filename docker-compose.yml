@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  auth-db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+  auth-service:
+    build: ./auth-service
+    ports: ["5000:5000"]
+    environment:
+      DB_URL: postgres://postgres:password@auth-db:5432/auth_db
+  main-service:
+    build: ./main-service
+    ports: ["5001:5001"]
